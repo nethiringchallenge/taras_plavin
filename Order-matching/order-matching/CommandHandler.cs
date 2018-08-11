@@ -7,6 +7,7 @@ namespace OrderMatching
     public interface ICommandHandler
     {
         void HandleCommand(string command);
+        IList<Order> GetResults();
     }
 
     public class CommandHandler : ICommandHandler
@@ -18,6 +19,10 @@ namespace OrderMatching
         public IList<Order> GetResults()
         {
             var res = new List<Order>();
+            res.AddRange(_buys.Values);
+            res.AddRange(_sells.Values);
+            res.AddRange(_trades);
+            return res;
         }
 
         public void HandleCommand(string command)
